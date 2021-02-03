@@ -22,12 +22,15 @@ Or install it yourself as:
 
 ## Usage
 
-    $ ENV['REDSHIFT_DATABASE_URL'] = 
-    $ Test::Remote::Redshift::Database.new(uri: ENV['REDSHIFT_DATABASE_URL'], database_prefix: "worker_test")
-    $   .generate_database_with_schema_sql_file("#{::Rails.root}/spec/support/data_views/init_redshift_table.sql")
-    $   .clean_old_database
-    $   .redshift_uri
-
+database.yml
+```
+    url: <%= 
+          Test::Remote::Redshift::Database.new(uri: ENV['REDSHIFT_CLUSTER_URL'], database_prefix: "test")
+             .generate_database_with_schema_sql_file("#{::Rails.root}/spec/support/data_views/init_redshift_table.sql")
+             .clean_old_database
+             .redshift_uri 
+         %>
+```
 
 ## Development
 
