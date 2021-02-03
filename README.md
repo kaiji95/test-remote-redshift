@@ -26,7 +26,7 @@ database.yml
 ```
     url: <%= 
           Test::Remote::Redshift::Database.new(uri: ENV['REDSHIFT_CLUSTER_URL'], database_prefix: "test")
-             .generate_database_with_schema_sql_file("#{::Rails.root}/spec/support/data_views/init_redshift_table.sql")
+             .generate_database_with_schema_sql_file("#{::Rails.root}/spec/support/init_redshift_table.sql")
              .clean_old_database
              .redshift_uri 
          %>
