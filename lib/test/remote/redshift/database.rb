@@ -40,7 +40,7 @@ module Test
         def clean_old_database(days_ago: 1)
           time_before = Time.now.to_i - days_ago * 60 * 60 * 24
           dbs = `psql #{psql_uri} -c "SELECT datname FROM pg_database WHERE datname ~ '#{database_prefix}_[0-9]+_[a-z0-9]+$';"`
-          dbs.split("\n")[2..-2] || [].each do |db|
+          (dbs.split("\n")[2..-2] || []).each do |db|
             db_time = db.strip!.split("_")[-2].to_i
             if db_time > 0 && db_time < time_before
               drop_database(db) 
