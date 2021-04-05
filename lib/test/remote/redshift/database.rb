@@ -36,6 +36,12 @@ module Test
         def drop_database(db_name)
           `PGPASSWORD="#{password}" dropdb -h #{host} -p #{port} -U #{user} #{db_name}`
         end
+        
+        def drop_current_database
+          # off databse link
+          `psql #{psql_uri} -c "SELECT pg_terminate_backend(procpid) FROM pg_stat_activity WHERE datname = '#{database_name}';"`
+          drop_database(database_name)
+        end
 
         def clean_old_database(days_ago: 1)
           time_before = Time.now.to_i - days_ago * 60 * 60 * 24
